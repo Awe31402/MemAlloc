@@ -115,32 +115,32 @@ int main(int argc, char *argv[])
 	void *ptr;
 	char *chr_ptr;
 	int *int_ptr;
-	double *double_ptr;
+	double *double_ptr, *double_ptr2;
 
-	printf("brefore awe_malloc, sbrk(0) = %10p\n", sbrk(0));
+	printf("brefore awe_malloc, sbrk(0) = %lu\n", sbrk(0));
 	chr_ptr = (char *)awe_malloc(sizeof(char));
 	*chr_ptr = 'x';
-	printf("after allocate %lu bytes, chr_ptr = %10p, *chr_ptr= %c , sbrk(0) = %10p\n",
+	printf("after allocate %lu bytes, chr_ptr = %lu, *chr_ptr= %c , sbrk(0) = %lu\n",
 		sizeof(char),chr_ptr, *chr_ptr, (void *)sbrk(0));
 	int_ptr = (int *)awe_malloc(sizeof(int));
 	*int_ptr = 100;
-	printf("after allocate %lu bytes, int_ptr = %10p, *int_ptr = %d, sbrk(0) = %10p\n",
+	printf("after allocate %lu bytes, int_ptr = %lu, *int_ptr = %d, sbrk(0) = %lu\n",
 		sizeof(int), int_ptr, *int_ptr, (void *)sbrk(0));
 	double_ptr = (double *) awe_malloc(sizeof(double));
 	*double_ptr = 1000000;
-	printf("after allocate %lu bytes, double_ptr = %10p, *double_ptr = %lf, sbrk(0) = %10p\n", 
+	printf("after allocate %lu bytes, double_ptr = %lu, *double_ptr = %lf, sbrk(0) = %lu\n", 
 		sizeof(double), double_ptr, *double_ptr, (void *)sbrk(0));
 
-	awe_free((void *)double_ptr);
+	//awe_free((void *)double_ptr);
 	awe_free((void *)int_ptr);
-	awe_free((void *)chr_ptr);
-	int_ptr = (int *)awe_malloc(sizeof(int));
-	*int_ptr = 200;
-	printf("After awe_free, after allocate %lu bytes, int_ptr = %10p, *int_ptr = %d, sbrk(0) = %10p\n",
+	//awe_free((void *)chr_ptr);
+	//int_ptr = (int *)awe_malloc(sizeof(int));
+	//*int_ptr = 200;
+	printf("After awe_free, after allocate %lu bytes, int_ptr = %lu, *int_ptr = %d, sbrk(0) = %lu\n",
 		sizeof(int), int_ptr, *int_ptr, (void *)sbrk(0));
-	double_ptr = (double *)awe_malloc(sizeof(double));
-	*double_ptr = 5000000;
-	printf("After awe_free, after allocate %lu bytes, double_ptr = %10p, *double_ptr = %lf, sbrk(0) = %10p\n",
-		sizeof(double), double_ptr, *double_ptr, (void *)sbrk(0));
+	double_ptr2 = (double *)awe_malloc(sizeof(double));
+	*double_ptr2 = 5000000;
+	printf("After awe_free, after allocate %lu bytes, double_ptr2 = %lu, *double_ptr2 = %lf, sbrk(0) = %lu\n",
+		sizeof(double), double_ptr2, *double_ptr2, (void *)sbrk(0));
 	exit(EXIT_SUCCESS);
 }
