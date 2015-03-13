@@ -83,18 +83,19 @@ void *awe_malloc(size_t size)
 	 * 1. the freelist could be empty
 	 * 2. there is no ideal size of freelist to allocate 
          */
-//	if(!current_header) { /*freelist is NULL(empty)*/
+	if(!current_header) { /*freelist is NULL(empty)*/
 		block_header = (block_header_t *) sbrk(size_add_header);
 		mem_ret = HEADER_TO_MEM(block_header);
-//	} else { 
+	} else { 
 		/*
 		 * there is no ideal block to allocate in free list
 		 * then resize the tail item in free list
 		 */
-//		size_t expand_size = size - current_header->block_size;
-//		block_header = (block_header_t *) sbrk(expand_size);
-//		mem_ret = HEADER_TO_MEM(block_header);
-//	}
+		size_t expand_size = size - current_header->block_size;
+		block_header = (block_header_t *) sbrk(expand_size);
+		mem_ret = HEADER_TO_MEM(block_header);
+	}
+
 	block_header->next = block_header->prev = NULL;
 	block_header->block_size = size;
 	return mem_ret;
